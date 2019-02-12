@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textDrinksSize">14sp</dimen>
+    <dimen name="buttonAddPlayerTextSize">14sp</dimen>
+    <dimen name="buttonGenderTextSize">24sp</dimen>
+    <dimen name="buttonDeleteTextSize">24sp</dimen>
+    <dimen name="textViewPersonNameTextSize">24sp</dimen>
+    <dimen name="textViewQuestionTextSize">20sp</dimen>
+    <dimen name="textViewDifficultyTextSize">20sp</dimen>
+    <dimen name="buttonDoneTextSize">20sp</dimen>
+    <dimen name="textViewQuestionFailedTextSize">20sp</dimen>
+    <dimen name="textViewNbDrinksTextSize">24sp</dimen>
+    <dimen name="recyclerViewEndTextSize">18sp</dimen>
+    <dimen name="endTextSize">14sp</dimen>
+
+    <dimen name="buttonTextSize">20sp</dimen>
+    <dimen name="buttonStartTextSize">14sp</dimen>
+
+    <dimen name="textViewTextSize">18sp</dimen>
+    <dimen name="textViewLittleTextSize">14sp</dimen>
+    <dimen name="textViewBigTextSize">22sp</dimen>
+</resources>

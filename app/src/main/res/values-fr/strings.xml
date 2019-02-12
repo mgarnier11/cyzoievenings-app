@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Les soirées de Cyzoï</string>
+    <string name="errorText">Erreur</string>
+    <string name="buttonNewGameText">Nouvelle partie</string>
+    <string name="buttonResumeGameText">Reprendre partie</string>
+    <string name="textViewNbTurnsText">"Nb tours : "</string>
+    <string name="textViewDifficultyText">Difficulté max. :</string>
+    <string name="textViewMinDrinksText">Min.</string>
+    <string name="textViewMaxDrinksText">Max : %1$d</string>
+    <string name="textViewDrinksText">Nombre de gorgées</string>
+    <string name="buttonStartText">Démarrer</string>
+    <string name="buttonAddPlayerText">Ajouter un joueur</string>
+    <string name="editTextNbTurnsHint">50</string>
+    <string name="buttonDeletePlayerText">X</string>
+    <string name="buttonGenderFemaleText">♀</string>
+    <string name="buttonGenderMaleText">♂</string>
+    <string name="buttonDoneText">Fait !</string>
+    <string name="buttonNotDoneText">Pas Fait !</string>
+    <string name="toastNotEnoughPlayers">Vous avez besoin d\'au moins 2 joueurs pour jouer</string>
+    <string name="imageViewPhotoContentDescription">Image du Joueur</string>
+    <string name="buttonNextQuestionText">Prochaine question</string>
+    <string name="textViewFailedText">Perdu !   Vous devez boire !</string>
+    <string name="drinksStr">%1$d gorgées</string>
+    <string name="shotsStr">%1$d shots</string>
+    <string name="editTextPlayerNameHint">Nom du joueur</string>
+    <string name="buttonContinueText">Continuer</string>
+    <string name="endGameTextViewName">Nom</string>
+    <string name="endGameTextViewNbAskedText">Posées</string>
+    <string name="endGameTextViewNbDoneText">Répondues</string>
+    <string name="endGameTextViewPercentageText">Pourcentage</string>
+    <string name="endGameTextViewNbDrunkText">Gorgées bues</string>
+    <string name="textViewGroupText">Groupe</string>
+</resources>

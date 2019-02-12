@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CyzoisEvenings" parent="Theme.AppCompat.Light">
+    </style>
+
+    <style name="CyzoisEvenings.Button">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:textSize">@dimen/buttonTextSize</item>
+    </style>
+
+    <style name="CyzoisEvenings.Button.Primary">
+        <item name="android:textColor">@drawable/button_primary_text_color</item>
+        <item name="android:background">@drawable/button_primary</item>
+    </style>
+
+    <style name="CyzoisEvenings.Button.Delete">
+        <item name="android:textColor">@drawable/button_delete_text_color</item>
+        <item name="android:background">@drawable/button_delete</item>
+    </style>
+
+    <style name="CyzoisEvenings.Button.NoChange">
+        <item name="android:background">@drawable/button_no_change</item>
+    </style>
+
+    <style name="CyzoisEvenings.TextView">
+        <item name="android:textSize">@dimen/textViewTextSize</item>
+        <item name="android:textColor">@color/textViewTextColor</item>
+    </style>
+
+    <style name="CyzoisEvenings.TextView.Little">
+        <item name="android:textSize">@dimen/textViewLittleTextSize</item>
+    </style>
+
+    <style name="CyzoisEvenings.TextView.Big">
+        <item name="android:textSize">@dimen/textViewBigTextSize</item>
+    </style>
+</resources>

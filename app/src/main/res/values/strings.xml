@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Cyzoï\'s Evenings</string>
+    <string name="errorText">Error</string>
+    <string name="buttonNewGameText">Start new game</string>
+    <string name="buttonResumeGameText">Resume game</string>
+    <string name="textViewNbTurnsText">Nb turns :</string>
+    <string name="textViewDifficultyText">Max difficulty :</string>
+    <string name="textViewMinDrinksText">Min.</string>
+    <string name="textViewMaxDrinksText">Max : %1$d</string>
+    <string name="textViewDrinksText">Nb Drinks</string>
+    <string name="buttonStartText">Start</string>
+    <string name="buttonAddPlayerText">Add new player</string>
+    <string name="editTextNbTurnsHint">50</string>
+    <string name="buttonDeletePlayerText">X</string>
+    <string name="buttonGenderFemaleText">♀</string>
+    <string name="buttonGenderMaleText">♂</string>
+    <string name="buttonDoneText">Done !</string>
+    <string name="buttonNotDoneText">Not Done !</string>
+    <string name="toastNotEnoughPlayers">You need at least 2 players to play</string>
+    <string name="imageViewPhotoContentDescription">Player Image</string>
+    <string name="buttonNextQuestionText">Next Question</string>
+    <string name="textViewFailedText">Failed ! \n You have to drink</string>
+    <string name="drinksStr">%1$d drinks</string>
+    <string name="shotsStr">%1$d shots</string>
+    <string name="editTextPlayerNameHint">Player Name</string>
+    <string name="buttonContinueText">Continue</string>
+    <string name="endGameTextViewName">Name</string>
+    <string name="endGameTextViewNbAskedText">Asked</string>
+    <string name="endGameTextViewNbDoneText">Done</string>
+    <string name="endGameTextViewPercentageText">Percentage</string>
+    <string name="endGameTextViewNbDrunkText">Drinks</string>
+    <string name="textViewGroupText">Group</string>
+</resources>
