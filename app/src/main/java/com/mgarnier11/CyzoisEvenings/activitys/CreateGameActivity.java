@@ -52,6 +52,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
         game = Game.getInstance();
 
+        game.startServer();
+
         setContentView(R.layout.activity_create_game);
 
         //getWindow().getDecorView().setBackground(R.style.);

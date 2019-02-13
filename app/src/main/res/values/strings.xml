@@ -30,4 +30,5 @@
     <string name="endGameTextViewPercentageText">Percentage</string>
     <string name="endGameTextViewNbDrunkText">Drinks</string>
     <string name="textViewGroupText">Group</string>
+    <string name="savePhotoError">Unable to save the photo</string>
 </resources>

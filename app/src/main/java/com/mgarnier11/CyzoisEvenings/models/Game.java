@@ -40,6 +40,8 @@ public class Game implements Serializable {
 
     public int nbDrinkMax;
 
+    public String groupImageUrl;
+
     private int nbTurns;
 
     public int getNbTurns() {
@@ -118,6 +120,10 @@ public class Game implements Serializable {
 
     public void questionDone(Question q, JsonHttpResponseHandler handler) {
         apiGetCall("questions/done/" + q.id, handler);
+    }
+
+    public void startServer() {
+        apiGetCall("/", new JsonHttpResponseHandler());
     }
 
     public Player getRandomPlayer() {

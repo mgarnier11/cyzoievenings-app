@@ -8,6 +8,7 @@ import android.hardware.Camera.CameraInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,10 +26,12 @@ import com.mgarnier11.CyzoisEvenings.models.Game;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerViewHolder>
 {
@@ -68,6 +71,8 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder
     {
+        private static final int REQUEST_CAPTURE_IMAGE = 100;
+
         // TextView intitulé Player :
         public TextView editTextPlayerName;
         public Button buttonPlayerGender;
@@ -115,18 +120,23 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
                 public void onClick(View v) {
                     Player p = listePlayers.get(getAdapterPosition());
 
-                    //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    //parent.startActivityForResult(intent, CreateGameActivity.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-
-                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                    String imageFileName = timeStamp + ".jpg";
-                    String pictureImagePath = getDir().getAbsolutePath() + File.separator + imageFileName;
-                    File file = new File(pictureImagePath);
-                    p.imageUrl = pictureImagePath;
-                    Uri outputFileUri = Uri.fromFile(file);
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-                    parent.startActivityForResult(cameraIntent, 1);
+                    Intent pictureIntent = new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE);
+                    if(pictureIntent.resolveActivity(parent.getPackageManager()) != null){
+                        //Create a file to store the image
+                        File photoFile = null;
+                        try {
+                            photoFile = createImageFile();
+                        } catch (IOException ex) {
+                            Toast.makeText(parent, R.string.savePhotoError, Toast.LENGTH_SHORT);
+                        }
+                        if (photoFile != null) {
+                            Uri photoURI = FileProvider.getUriForFile(parent, "com.mgarnier11.CyzoisEvenings.provider", photoFile);
+                            p.imageUrl = photoFile.toString();
+                            pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                            parent.startActivityForResult(pictureIntent, REQUEST_CAPTURE_IMAGE);
+                        }
+                    }
                 }
 
             });
@@ -151,16 +161,19 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
             });
         }
 
-        private File getDir() {
-            File sdDir = new File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) +
-                            File.separator +
-                            "CyzoiEveningsPhotos");
-            boolean success = true;
-            if (!sdDir.exists()) {
-                success = sdDir.mkdirs();
-            }
-            return sdDir;
+        private File createImageFile() throws IOException {
+            String timeStamp =
+                    new SimpleDateFormat("yyyyMMdd_HHmmss",
+                            Locale.getDefault()).format(new Date());
+            String imageFileName = "IMG_" + timeStamp + "_";
+            File storageDir =
+                    parent.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            File image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+            return image;
         }
     }
 }
