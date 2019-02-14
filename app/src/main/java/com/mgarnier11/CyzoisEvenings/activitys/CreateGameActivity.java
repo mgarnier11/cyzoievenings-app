@@ -5,7 +5,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +31,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class CreateGameActivity extends AppCompatActivity {
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 0;
+    private static final int REQUEST_CAPTURE_IMAGE = 100;
 
     private Game game;
 
@@ -42,9 +46,6 @@ public class CreateGameActivity extends AppCompatActivity {
     private EditText editTextNbTurns;
 
     private TextView textViewMaxDrinks;
-
-    private Camera camera;
-    private int cameraId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,5 +113,39 @@ public class CreateGameActivity extends AppCompatActivity {
             finish();
         }
 
+    }
+
+    public void onPhotoClcik(View v) {
+        Intent pictureIntent = new Intent(
+                MediaStore.ACTION_IMAGE_CAPTURE);
+        if(pictureIntent.resolveActivity(getPackageManager()) != null){
+            //Create a file to store the image
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Toast.makeText(this, R.string.savePhotoError, Toast.LENGTH_SHORT);
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this, "com.mgarnier11.CyzoisEvenings.provider", photoFile);
+                game.groupImageUrl = photoFile.toString();
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(pictureIntent, REQUEST_CAPTURE_IMAGE);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp =
+                new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        return image;
     }
 }

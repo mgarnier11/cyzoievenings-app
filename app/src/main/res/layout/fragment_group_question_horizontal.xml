@@ -52,6 +52,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/imageViewPhotoContentDescription"
+                android:scaleType="fitXY"
                 tools:srcCompat="@tools:sample/avatars[3]" />
         </android.support.v7.widget.CardView>
     </android.support.constraint.ConstraintLayout>

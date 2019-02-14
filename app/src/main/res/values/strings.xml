@@ -31,4 +31,5 @@
     <string name="endGameTextViewNbDrunkText">Drinks</string>
     <string name="textViewGroupText">Group</string>
     <string name="savePhotoError">Unable to save the photo</string>
+    <string name="buttonPhotoText">Photo</string>
 </resources>

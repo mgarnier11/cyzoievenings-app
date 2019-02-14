@@ -1,6 +1,8 @@
 package com.mgarnier11.CyzoisEvenings.activitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -155,8 +157,16 @@ public class QuestionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        moveTaskToBack(true);
+        super.onBackPressed();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(Game.getInstance());
+        editor.putString("game", json);
+        editor.apply();
+
+        //moveTaskToBack(true);
     }
 
 }

@@ -32,4 +32,5 @@
     <string name="endGameTextViewNbDrunkText">Gorgées bues</string>
     <string name="textViewGroupText">Groupe</string>
     <string name="savePhotoError">Impossible de sauvegarder la photo</string>
+    <string name="buttonPhotoText">Photo</string>
 </resources>

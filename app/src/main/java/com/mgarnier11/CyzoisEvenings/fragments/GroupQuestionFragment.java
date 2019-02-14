@@ -2,6 +2,7 @@ package com.mgarnier11.CyzoisEvenings.fragments;
 
 
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -30,6 +32,8 @@ public class GroupQuestionFragment extends Fragment {
     TextView textViewDrinks;
 
     Button buttonContinue;
+
+    ImageView imageViewGroupPhoto;
 
     Question chosedQuestion;
     Player chosedPlayer;
@@ -83,6 +87,8 @@ public class GroupQuestionFragment extends Fragment {
 
         buttonContinue = getActivity().findViewById(R.id.fragment_group_question_buttonContinue);
 
+        imageViewGroupPhoto = getActivity().findViewById(R.id.fragment_group_question_imageViewPhoto);
+
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +99,9 @@ public class GroupQuestionFragment extends Fragment {
         textViewQuestion.setText(chosedQuestion.text);
         textViewDrinks.setText(getResources().getString(R.string.drinksStr, rndDrinks));
         textViewDifficulty.setText(chosedQuestion.getDifficultyStars());
+
+        imageViewGroupPhoto.setImageBitmap(BitmapFactory.decodeFile(game.groupImageUrl));
+
     }
 
     public void buttonContinueOnClick(View v) {
