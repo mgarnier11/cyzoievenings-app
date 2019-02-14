@@ -40,6 +40,9 @@ public class Question implements Serializable {
     }
 
     public void setPlayersToText(List<Player> lstPlayers) {
+        text = text.replace("{F}", "");
+        text = text.replace("{M}", "");
+
         String findM = "{PlayerM}";
         Pattern patternM = Pattern.compile("\\{PlayerM\\}");
         String findF = "{PlayerF}";
