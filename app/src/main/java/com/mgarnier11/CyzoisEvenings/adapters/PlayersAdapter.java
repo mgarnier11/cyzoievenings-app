@@ -3,8 +3,13 @@ package com.mgarnier11.CyzoisEvenings.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -37,10 +42,10 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 {
     // Liste d'objets métier :
     private List<Player> listePlayers;
-    private Activity parent;
+    private CreateGameActivity parent;
     private Context context;
     // Constructeur :
-    public PlayersAdapter(List<Player> listePlayers, Activity parent)
+    public PlayersAdapter(List<Player> listePlayers, CreateGameActivity parent)
     {
         this.listePlayers = listePlayers;
         this.parent = parent;
@@ -133,6 +138,17 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
                         if (photoFile != null) {
                             Uri photoURI = FileProvider.getUriForFile(parent, "com.mgarnier11.CyzoisEvenings.provider", photoFile);
                             p.imageUrl = photoFile.toString();
+
+                            //Drawable d = Drawable.createFromPath(photoFile.toString());
+/*
+                            Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(photoFile.toString()),
+                                    64, 64);
+
+                            Drawable d = new BitmapDrawable(parent.getResources(), thumbImage);
+
+*/
+                            //buttonPlayerPhoto.setBackground(d);
+
                             pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                             parent.startActivityForResult(pictureIntent, REQUEST_CAPTURE_IMAGE);
                         }

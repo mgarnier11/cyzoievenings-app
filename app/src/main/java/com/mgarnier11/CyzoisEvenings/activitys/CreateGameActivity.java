@@ -3,11 +3,16 @@ package com.mgarnier11.CyzoisEvenings.activitys;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +20,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +46,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
     private PlayersAdapter playersAdapter;
 
+    private Button buttonPhoto;
+
     private RangeBar rangeBarNbDrinks;
     private RangeBar rangeBarDiffMax;
 
@@ -61,6 +69,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
         textViewMaxDrinks = findViewById(R.id.activity_create_game_textViewMaxDrinks);
         textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(10 * 1.5 * 1.5)));
+
+        buttonPhoto = findViewById(R.id.activity_create_game_buttonPhoto);
 
         rangeBarDiffMax = findViewById(R.id.activity_create_game_seekBarDifficulty);
         rangeBarNbDrinks = findViewById(R.id.activity_create_game_seekBarDrinks);
@@ -85,6 +95,22 @@ public class CreateGameActivity extends AppCompatActivity {
         playersAdapter = new PlayersAdapter(game.lstPlayers, this);
 
         recyclerViewPlayers.setAdapter(playersAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CAPTURE_IMAGE &&
+                resultCode == RESULT_OK) {
+            Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(game.groupImageUrl.toString()),
+                    64, 64);
+
+            Drawable d = new BitmapDrawable(getResources(), thumbImage);
+
+            buttonPhoto.setBackground(d);
+        }
+
     }
 
     public void onAddPlayerClick(View v) {
@@ -115,7 +141,7 @@ public class CreateGameActivity extends AppCompatActivity {
 
     }
 
-    public void onPhotoClcik(View v) {
+    public void onPhotoClick(View v) {
         Intent pictureIntent = new Intent(
                 MediaStore.ACTION_IMAGE_CAPTURE);
         if(pictureIntent.resolveActivity(getPackageManager()) != null){

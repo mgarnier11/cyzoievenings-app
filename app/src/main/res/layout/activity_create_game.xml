@@ -85,12 +85,11 @@
     <Button
         android:id="@+id/activity_create_game_buttonPhoto"
         style="@style/CyzoisEvenings.Button"
-        android:layout_width="96dp"
+        android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
-        android:onClick="onPhotoClcik"
-        android:text="@string/buttonPhotoText"
+        android:onClick="onPhotoClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
