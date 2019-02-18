@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Question implements Serializable {
+    public int nbDrinks;
+
     public String id;
 
     public Type type;
@@ -27,6 +29,7 @@ public class Question implements Serializable {
     public int gender;
 
     public Question() {
+        this.nbDrinks = 0;
         this.id = "";
         this.typeId = 0;
         this.type = null;
@@ -96,11 +99,15 @@ public class Question implements Serializable {
     }
 
     public int getRndDrinks(int min, int max) {
-        float rnd = (float) GameOld.rnd.nextInt(max - min) + min;
+        if (nbDrinks == 0) {
+            float rnd = (float) Game.rnd.nextInt(max - min) + min;
 
-        int eff = nbDone * 100 / nbPicked;
+            int eff = nbDone * 100 / nbPicked;
 
-        return (int)((rnd * (1 + (float)difficulty/10)) * (1 + (float)eff/20));
+            nbDrinks = (int)((rnd * (1 + (float)difficulty/10)) * (1 + ((float)eff/20) / 10));
+        }
+
+        return nbDrinks;
     }
 
     public String getDifficultyStars() {

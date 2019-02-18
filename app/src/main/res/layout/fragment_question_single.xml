@@ -2,41 +2,40 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_question_single_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".activitys.QuestionActivity">
 
     <TextView
-        android:id="@+id/fragment_ask_question_textViewQuestion"
+        android:id="@+id/fragment_question_textViewQuestion"
         style="@style/CyzoisEvenings.TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
         android:maxLines="6"
         android:minLines="4"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_ask_question_buttonDone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_question_textViewDifficulty" />
 
     <TextView
-        android:id="@+id/fragment_ask_question_textViewDifficulty"
+        android:id="@+id/fragment_question_textViewDifficulty"
         style="@style/CyzoisEvenings.TextView.Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_ask_question_textViewQuestion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/fragment_ask_question_buttonDone"
+        android:id="@+id/fragment_question_buttonDone"
         style="@style/CyzoisEvenings.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,11 +44,11 @@
         android:layout_marginBottom="16dp"
         android:text="@string/buttonDoneText"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_ask_question_buttonNotDone"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_question_buttonNotDone"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/fragment_ask_question_buttonNotDone"
+        android:id="@+id/fragment_question_buttonNotDone"
         style="@style/CyzoisEvenings.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -59,6 +58,6 @@
         android:text="@string/buttonNotDoneText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_ask_question_buttonDone" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_question_buttonDone" />
 
 </android.support.constraint.ConstraintLayout>

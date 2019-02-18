@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.activitys.QuestionActivity;
+import com.mgarnier11.CyzoisEvenings.models.Game;
 import com.mgarnier11.CyzoisEvenings.models.GameOld;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 import com.mgarnier11.CyzoisEvenings.models.Question;
@@ -21,13 +22,9 @@ import com.mgarnier11.CyzoisEvenings.models.Question;
  * A simple {@link Fragment} subclass.
  */
 public class ResultQuestionFragment extends Fragment {
-
-    Question question;
-    Player player;
-    GameOld gameOld;
+    Game game;
 
     TextView textViewNbDrinks;
-    int nbDrinks;
 
     Button buttonNextQuestion;
 
@@ -49,9 +46,7 @@ public class ResultQuestionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        gameOld = GameOld.getInstance();
-        player = (Player)getArguments().getSerializable("player");
-        question = (Question) getArguments().getSerializable("question");
+        game = Game.getInstance();
 
         updateUi();
     }
@@ -59,11 +54,7 @@ public class ResultQuestionFragment extends Fragment {
     private void updateUi() {
         textViewNbDrinks = getActivity().findViewById(R.id.fragment_result_question_textViewNbDrinks);
 
-        nbDrinks = question.getRndDrinks(gameOld.nbDrinkMin, gameOld.nbDrinkMax);
-
-        player.nbDrinked += nbDrinks;
-
-        textViewNbDrinks.setText(getResources().getString(R.string.drinksStr, nbDrinks));
+        textViewNbDrinks.setText(getResources().getString(R.string.drinksStr, game.actualQuestion.getRndDrinks(game.nbDrinkMin, game.nbDrinkMax)));
 
         buttonNextQuestion = getActivity().findViewById(R.id.fragment_result_question_buttonNextQuestion);
 
@@ -76,8 +67,8 @@ public class ResultQuestionFragment extends Fragment {
     }
 
     public void buttonNextQuestionOnClick(View v) {
-        //((QuestionActivity)getActivity()).nextQuestion(false);
+        game.actualPlayer.nbDrinked += game.actualQuestion.nbDrinks;
+
+        ((QuestionActivity)getActivity()).nextQuestion();
     }
-
-
 }

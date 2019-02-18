@@ -5,7 +5,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.mgarnier11.CyzoisEvenings.R;
 
 import org.json.JSONObject;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.client.cache.Resource;
 
 public class Game implements Serializable {
     //region Properties
@@ -135,11 +133,17 @@ public class Game implements Serializable {
         Collections.shuffle(lstPlayersOrder);
     }
 
-    public void nextTurn() {
-        getNextPlayer(true);
+    public void nextTurn() throws GameFinishedException {
+        try {
+            getNextPlayer(true);
+        }catch (IndexOutOfBoundsException e) {
+            throw new GameFinishedException();
+        } catch (Exception e) {
+            Log.i("a", e.getMessage());
+        }
     }
 
-    public void getNextPlayer(boolean nextT) {
+    public void getNextPlayer(boolean nextT){
         actualPlayer = lstPlayersOrder.get(0);
         lstPlayersOrder.remove(0);
 
@@ -149,7 +153,7 @@ public class Game implements Serializable {
     }
 
     public void getNextType(final boolean nextQ) {
-        randomType(new JsonHttpResponseHandler() {
+        randomType((actualPlayer == group ? true : false) ,new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Type t = new Gson().fromJson(response.toString(), Type.class);
@@ -200,7 +204,7 @@ public class Game implements Serializable {
         List<Player> lstP = new ArrayList<>();
 
         for (int i = 0; i < nb; i++) {
-            Player newPlayer = lst.get(GameOld.rnd.nextInt(lst.size()));
+            Player newPlayer = lst.get(Game.rnd.nextInt(lst.size()));
             lst.remove(newPlayer);
 
             lstP.add(newPlayer);
@@ -214,8 +218,8 @@ public class Game implements Serializable {
         apiGetCall("/", new JsonHttpResponseHandler());
     }
 
-    public void randomType(JsonHttpResponseHandler handler) {
-        apiGetCall("types/randomW", handler);
+    public void randomType(boolean group, JsonHttpResponseHandler handler) {
+        apiGetCall("types/randomWG/" + (group ? "1" : "0"), handler);
     }
 
     public void randomQuestion(int typeId, int maxDifficulty, int maxPlayers, int gender, JsonHttpResponseHandler handler) {
@@ -229,7 +233,7 @@ public class Game implements Serializable {
     private void apiGetCall(String uri, JsonHttpResponseHandler handler) {
         if (asyncClient == null) asyncClient = new AsyncHttpClient();
 
-        asyncClient.get(GameOld.API_URL + uri, handler);
+        asyncClient.get(Game.API_URL + uri, handler);
     }
     //endregion
 
@@ -260,5 +264,11 @@ public class Game implements Serializable {
         }
     }
     //endregion
+
+    public class GameFinishedException extends Exception {
+        public GameFinishedException() {
+
+        }
+    }
 }
 

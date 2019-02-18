@@ -34,8 +34,7 @@
         <activity
             android:name=".activitys.EndGameActivity" />
         <activity
-            android:name=".activitys.QuestionActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:name=".activitys.QuestionActivity" />
         <activity
             android:name=".activitys.CreateGameActivity"
             android:windowSoftInputMode="adjustNothing" />

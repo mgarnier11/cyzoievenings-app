@@ -10,28 +10,29 @@ import android.view.View;
 import com.mgarnier11.CyzoisEvenings.MainActivity;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.adapters.PlayersEndAdapter;
+import com.mgarnier11.CyzoisEvenings.models.Game;
 import com.mgarnier11.CyzoisEvenings.models.GameOld;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class EndGameActivity extends AppCompatActivity {
 
-    GameOld gameOld;
+    Game game;
     PlayersEndAdapter playersEndAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();*/
 
         setContentView(R.layout.activity_end_game);
 
-        gameOld = GameOld.getInstance();
+        game = Game.getInstance();
+
+        List<Player> lst = new ArrayList<>(game.lstPlayers);
 
         RecyclerView recyclerViewPlayers = findViewById(R.id.activity_end_game_recyclerViewEndPlayers);
         recyclerViewPlayers.setHasFixedSize(true);
@@ -39,14 +40,16 @@ public class EndGameActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewPlayers.setLayoutManager(layoutManager);
 
-        Collections.sort(gameOld.lstPlayers, new Comparator<Player>() {
+        lst.add(game.group);
+
+        Collections.sort(lst, new Comparator<Player>() {
             @Override
             public int compare(Player o1, Player o2) {
                 return o1.getplayerPoints() - o2.getplayerPoints();
             }
         });
 
-        playersEndAdapter = new PlayersEndAdapter(gameOld.lstPlayers);
+        playersEndAdapter = new PlayersEndAdapter(lst);
         recyclerViewPlayers.setAdapter(playersEndAdapter);
     }
 
