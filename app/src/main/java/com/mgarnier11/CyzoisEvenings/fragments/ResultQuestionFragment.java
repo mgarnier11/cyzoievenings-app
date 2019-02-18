@@ -2,7 +2,6 @@ package com.mgarnier11.CyzoisEvenings.fragments;
 
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.activitys.QuestionActivity;
-import com.mgarnier11.CyzoisEvenings.models.Game;
+import com.mgarnier11.CyzoisEvenings.models.GameOld;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 import com.mgarnier11.CyzoisEvenings.models.Question;
 
@@ -25,7 +24,7 @@ public class ResultQuestionFragment extends Fragment {
 
     Question question;
     Player player;
-    Game game;
+    GameOld gameOld;
 
     TextView textViewNbDrinks;
     int nbDrinks;
@@ -50,7 +49,7 @@ public class ResultQuestionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        game = Game.getInstance();
+        gameOld = GameOld.getInstance();
         player = (Player)getArguments().getSerializable("player");
         question = (Question) getArguments().getSerializable("question");
 
@@ -60,7 +59,7 @@ public class ResultQuestionFragment extends Fragment {
     private void updateUi() {
         textViewNbDrinks = getActivity().findViewById(R.id.fragment_result_question_textViewNbDrinks);
 
-        nbDrinks = question.getRndDrinks(game.nbDrinkMin, game.nbDrinkMax);
+        nbDrinks = question.getRndDrinks(gameOld.nbDrinkMin, gameOld.nbDrinkMax);
 
         player.nbDrinked += nbDrinks;
 
@@ -77,7 +76,7 @@ public class ResultQuestionFragment extends Fragment {
     }
 
     public void buttonNextQuestionOnClick(View v) {
-        ((QuestionActivity)getActivity()).nextQuestion(false);
+        //((QuestionActivity)getActivity()).nextQuestion(false);
     }
 
 

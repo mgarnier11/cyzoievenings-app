@@ -1,5 +1,6 @@
 package com.mgarnier11.CyzoisEvenings;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 import com.mgarnier11.CyzoisEvenings.activitys.CreateGameActivity;
 import com.mgarnier11.CyzoisEvenings.activitys.QuestionActivity;
 import com.mgarnier11.CyzoisEvenings.models.Game;
+import com.mgarnier11.CyzoisEvenings.models.GameOld;
 import com.mgarnier11.CyzoisEvenings.services.OnClearFromRecentService;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
         try {
-            String json = preferences.getString("game", "");
+            String json = preferences.getString("gameSaved", "");
             Game game = gson.fromJson(json, Game.class);
             if (game != null) {
                 Game.setInstance(game);
@@ -56,5 +58,15 @@ public class MainActivity extends AppCompatActivity {
     public void startNewGameActivity() {
         Intent intent = new Intent(this, CreateGameActivity.class);
         startActivity(intent);
+    }
+
+
+
+
+
+
+
+    public static int getStringIdentifier(Context context, String name) {
+        return context.getResources().getIdentifier(name, "string", context.getPackageName());
     }
 }

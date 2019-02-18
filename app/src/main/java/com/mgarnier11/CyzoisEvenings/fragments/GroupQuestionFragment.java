@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.activitys.QuestionActivity;
-import com.mgarnier11.CyzoisEvenings.models.Game;
+import com.mgarnier11.CyzoisEvenings.models.GameOld;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 import com.mgarnier11.CyzoisEvenings.models.Question;
 
@@ -40,7 +40,7 @@ public class GroupQuestionFragment extends Fragment {
 
     int rndDrinks;
 
-    Game game;
+    GameOld gameOld;
 
     public GroupQuestionFragment() {
         // Required empty public constructor
@@ -51,7 +51,7 @@ public class GroupQuestionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v;
 
-        game = Game.getInstance();
+        gameOld = GameOld.getInstance();
 
         chosedQuestion = (Question)getArguments().getSerializable("question");
         chosedPlayer = (Player) getArguments().getSerializable("player");
@@ -71,7 +71,7 @@ public class GroupQuestionFragment extends Fragment {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        ((QuestionActivity)getActivity()).showQuestion(chosedQuestion, chosedPlayer);
+        //((QuestionActivity)getActivity()).showQuestion(chosedQuestion, chosedPlayer);
     }
 
     @Override
@@ -100,13 +100,13 @@ public class GroupQuestionFragment extends Fragment {
         textViewDrinks.setText(getResources().getString(R.string.drinksStr, rndDrinks));
         textViewDifficulty.setText(chosedQuestion.getDifficultyStars());
 
-        imageViewGroupPhoto.setImageBitmap(BitmapFactory.decodeFile(game.groupImageUrl));
+        imageViewGroupPhoto.setImageBitmap(BitmapFactory.decodeFile(gameOld.groupImageUrl));
 
     }
 
     public void buttonContinueOnClick(View v) {
-        game.questionDone(chosedQuestion, new JsonHttpResponseHandler());
+        gameOld.questionDone(chosedQuestion, new JsonHttpResponseHandler());
 
-        ((QuestionActivity)getActivity()).nextQuestion(false);
+        //((QuestionActivity)getActivity()).nextQuestion(false);
     }
 }

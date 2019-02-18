@@ -96,7 +96,7 @@ public class Question implements Serializable {
     }
 
     public int getRndDrinks(int min, int max) {
-        float rnd = (float)Game.rnd.nextInt(max - min) + min;
+        float rnd = (float) GameOld.rnd.nextInt(max - min) + min;
 
         int eff = nbDone * 100 / nbPicked;
 

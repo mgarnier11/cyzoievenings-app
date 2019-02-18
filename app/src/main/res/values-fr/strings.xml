@@ -17,7 +17,7 @@
     <string name="buttonGenderMaleText">♂</string>
     <string name="buttonDoneText">Fait !</string>
     <string name="buttonNotDoneText">Pas Fait !</string>
-    <string name="toastNotEnoughPlayers">Vous avez besoin d\'au moins 2 joueurs pour jouer</string>
+    <string name="notEnoughPlayers">Vous avez besoin d\'au moins 2 joueurs pour jouer</string>
     <string name="imageViewPhotoContentDescription">Image du Joueur</string>
     <string name="buttonNextQuestionText">Prochaine question</string>
     <string name="textViewFailedText">Perdu !   Vous devez boire !</string>
@@ -33,4 +33,6 @@
     <string name="textViewGroupText">Groupe</string>
     <string name="savePhotoError">Impossible de sauvegarder la photo</string>
     <string name="buttonPhotoText">Photo</string>
+    <string name="playerNameWrong">Nom du joueur incorrect</string>
+    <string name="groupName">Groupe</string>
 </resources>

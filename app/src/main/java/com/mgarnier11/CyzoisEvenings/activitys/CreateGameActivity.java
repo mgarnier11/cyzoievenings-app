@@ -1,30 +1,22 @@
 package com.mgarnier11.CyzoisEvenings.activitys;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mgarnier11.CyzoisEvenings.MainActivity;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.adapters.PlayersAdapter;
 import com.mgarnier11.CyzoisEvenings.models.Game;
@@ -33,7 +25,6 @@ import com.mgarnier11.CyzoisEvenings.models.Player;
 import com.appyvet.materialrangebar.RangeBar;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,10 +56,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_game);
 
-        //getWindow().getDecorView().setBackground(R.style.);
-
         textViewMaxDrinks = findViewById(R.id.activity_create_game_textViewMaxDrinks);
-        textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(10 * 1.5 * 1.5)));
+        //textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(10 * 1.5 * 1.5)));
 
         buttonPhoto = findViewById(R.id.activity_create_game_buttonPhoto);
 
@@ -80,7 +69,7 @@ public class CreateGameActivity extends AppCompatActivity {
                 game.nbDrinkMin = Integer.parseInt(rangeBarNbDrinks.getLeftPinValue());
                 game.nbDrinkMax = Integer.parseInt(rangeBarNbDrinks.getRightPinValue());
 
-                textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(game.nbDrinkMax * 1.5 * 1.5)));
+                //textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(game.nbDrinkMax * 1.5 * 1.5)));
             }
         });
 
@@ -96,7 +85,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
         recyclerViewPlayers.setAdapter(playersAdapter);
     }
-
+    //<editor-fold desc="onActRes">
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -112,6 +102,8 @@ public class CreateGameActivity extends AppCompatActivity {
         }
 
     }
+*/
+//</editor-fold>
 
     public void onAddPlayerClick(View v) {
         game.lstPlayers.add(new Player(game));
@@ -120,31 +112,32 @@ public class CreateGameActivity extends AppCompatActivity {
     }
 
     public void onStartClick(View v) {
+        try {
+            game.checkPlayers();
 
-        if (!game.checkPlayers()) {
-            Toast.makeText(this, R.string.toastNotEnoughPlayers,Toast.LENGTH_SHORT).show();
-        } else {
             game.nbDrinkMin = Integer.parseInt(rangeBarNbDrinks.getLeftPinValue());
             game.nbDrinkMax = Integer.parseInt(rangeBarNbDrinks.getRightPinValue());
-            game.difficultyMax = Integer.parseInt(rangeBarDiffMax.getRightPinValue());
+            game.maxDifficulty = Integer.parseInt(rangeBarDiffMax.getRightPinValue());
 
             String nbTurns = editTextNbTurns.getText().toString();
             if (nbTurns.isEmpty()) nbTurns = editTextNbTurns.getHint().toString();
 
-            game.setNbTurns(Integer.parseInt(nbTurns));
+            game.setPlayerOrder(Integer.parseInt(nbTurns));
 
             Intent intent = new Intent(this, QuestionActivity.class);
 
             startActivity(intent);
             finish();
-        }
 
+        } catch (Exception e) {
+            Toast.makeText(this, MainActivity.getStringIdentifier(this, e.getMessage()), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onPhotoClick(View v) {
         Intent pictureIntent = new Intent(
                 MediaStore.ACTION_IMAGE_CAPTURE);
-        if(pictureIntent.resolveActivity(getPackageManager()) != null){
+        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
             //Create a file to store the image
             File photoFile = null;
             try {
@@ -154,7 +147,7 @@ public class CreateGameActivity extends AppCompatActivity {
             }
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this, "com.mgarnier11.CyzoisEvenings.provider", photoFile);
-                game.groupImageUrl = photoFile.toString();
+                game.group.imageUrl = photoFile.toString();
                 pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(pictureIntent, REQUEST_CAPTURE_IMAGE);
             }
