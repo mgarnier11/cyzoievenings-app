@@ -11,7 +11,6 @@ import com.mgarnier11.CyzoisEvenings.MainActivity;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.adapters.PlayersEndAdapter;
 import com.mgarnier11.CyzoisEvenings.models.Game;
-import com.mgarnier11.CyzoisEvenings.models.GameOld;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 
 import java.util.ArrayList;
@@ -54,8 +53,6 @@ public class EndGameActivity extends AppCompatActivity {
     }
 
     public void onButtonContinueClick(View v) {
-        GameOld.setInstance(new GameOld());
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

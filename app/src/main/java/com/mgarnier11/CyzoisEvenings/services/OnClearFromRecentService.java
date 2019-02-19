@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.mgarnier11.CyzoisEvenings.models.Game;
-import com.mgarnier11.CyzoisEvenings.models.GameOld;
 
 public class OnClearFromRecentService extends Service {
 

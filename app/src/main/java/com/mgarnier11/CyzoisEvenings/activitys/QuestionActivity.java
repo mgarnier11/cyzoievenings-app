@@ -1,9 +1,10 @@
 package com.mgarnier11.CyzoisEvenings.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +21,11 @@ import com.mgarnier11.CyzoisEvenings.models.Game;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 import com.mgarnier11.CyzoisEvenings.models.Question;
 import com.mgarnier11.CyzoisEvenings.models.Type;
+import com.mgarnier11.CyzoisEvenings.models.Utils;
 
 public class QuestionActivity extends AppCompatActivity {
+    private final static int IMAGE_RESULT = 200;
+
     Game game;
 
     ConstraintLayout layoutAct;
@@ -73,6 +77,19 @@ public class QuestionActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == IMAGE_RESULT) {
+                game.actualPlayer.setImageUrl(Utils.getImageFromFilePath(this, data));
+
+                showPlayer(game.actualPlayer);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
     public void showQuestion(Question q) {
         Fragment fragment;
         if (game.actualType.group) {
@@ -95,12 +112,12 @@ public class QuestionActivity extends AppCompatActivity {
             getSupportFragmentManager()
                     .beginTransaction()
                     .remove(getSupportFragmentManager().findFragmentById(R.id.activity_question_questionFragmentContainer))
-                    .commit();
+                    .commitAllowingStateLoss();
         }
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_question_questionFragmentContainer, fragment)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public void showPlayerFragment(Fragment fragment) {
@@ -108,12 +125,12 @@ public class QuestionActivity extends AppCompatActivity {
             getSupportFragmentManager()
                     .beginTransaction()
                     .remove(getSupportFragmentManager().findFragmentById(R.id.activity_question_playerFragmentContainer))
-                    .commit();
+                    .commitAllowingStateLoss();
         }
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_question_playerFragmentContainer, fragment)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     public void nextQuestion() {
@@ -140,10 +157,11 @@ public class QuestionActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(Game.getInstance());
-        editor.putString("game", json);
+        editor.putString("gameSaved", json);
         editor.apply();
-
-        //moveTaskToBack(true);
     }
 
+    public void takePhoto() {
+        startActivityForResult(Utils.getPickImageChooserIntent(this), IMAGE_RESULT);
+    }
 }

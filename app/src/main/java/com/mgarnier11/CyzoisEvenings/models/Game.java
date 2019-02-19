@@ -42,6 +42,7 @@ public class Game implements Serializable {
 
     private static transient String apiErrorCode = "apiError";
 
+    private transient AsyncHttpClient asyncClient;
 
 
     public List<Player> lstPlayers;
@@ -61,10 +62,6 @@ public class Game implements Serializable {
     public int nbDrinkMax;
 
     public int maxDifficulty;
-
-
-    private transient AsyncHttpClient asyncClient;
-
     //endregion
 
     //region Constructors
@@ -182,7 +179,7 @@ public class Game implements Serializable {
                 // Handle resulting parsed JSON response here
                 Question q = new Gson().fromJson(response.toString(), Question.class);
 
-                q.setPlayersToText(getRandomPlayers(actualPlayer, q.nbPlayers));
+                q.processQuestion(getRandomPlayers(actualPlayer, q.nbPlayers));
 
                 actualQuestion = q;
 

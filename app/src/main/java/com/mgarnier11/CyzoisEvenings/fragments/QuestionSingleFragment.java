@@ -83,6 +83,7 @@ public class QuestionSingleFragment extends Fragment {
     }
 
     public void buttonNotDoneOnClick(View v) {
+        game.actualPlayer.nbQuestions++;
 
         ResultQuestionFragment fragment = new ResultQuestionFragment();
 

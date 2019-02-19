@@ -1,10 +1,12 @@
 package com.mgarnier11.CyzoisEvenings.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,22 +17,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mgarnier11.CyzoisEvenings.MainActivity;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.adapters.PlayersAdapter;
 import com.mgarnier11.CyzoisEvenings.models.Game;
 import com.mgarnier11.CyzoisEvenings.models.Player;
 
 import com.appyvet.materialrangebar.RangeBar;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import com.mgarnier11.CyzoisEvenings.models.Utils;
 
 public class CreateGameActivity extends AppCompatActivity {
-    private static final int REQUEST_CAPTURE_IMAGE = 100;
+    private final static int IMAGE_RESULT = 200;
 
     private Game game;
 
@@ -56,7 +52,7 @@ public class CreateGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_game);
 
         textViewMaxDrinks = findViewById(R.id.activity_create_game_textViewMaxDrinks);
-        //textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(10 * 1.5 * 1.5)));
+        textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(10 * 1.5 * 1.5)));
 
         buttonPhoto = findViewById(R.id.activity_create_game_buttonPhoto);
 
@@ -67,12 +63,25 @@ public class CreateGameActivity extends AppCompatActivity {
             public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
                 game.nbDrinkMin = Integer.parseInt(rangeBarNbDrinks.getLeftPinValue());
                 game.nbDrinkMax = Integer.parseInt(rangeBarNbDrinks.getRightPinValue());
-
-                //textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(game.nbDrinkMax * 1.5 * 1.5)));
+                textViewMaxDrinks.setText(getResources().getString(R.string.textViewMaxDrinksText, (int)(game.nbDrinkMax * 1.5 * 1.5)));
             }
         });
 
         editTextNbTurns = findViewById(R.id.activity_create_game_editTextNbTurns);
+
+        game.group.setEventListner(new Player.PlayerConsumer() {
+            @Override
+            public void onImageUrlChanged(String newImageUrl) {
+                super.onImageUrlChanged(newImageUrl);
+
+                Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(newImageUrl),
+                        64, 64);
+
+                Drawable d = new BitmapDrawable(getResources(), thumbImage);
+
+                buttonPhoto.setBackground(d);
+            }
+        });
 
         RecyclerView recyclerViewPlayers = findViewById(R.id.activity_create_game_recyclerViewPlayers);
         recyclerViewPlayers.setHasFixedSize(true);
@@ -84,28 +93,22 @@ public class CreateGameActivity extends AppCompatActivity {
 
         recyclerViewPlayers.setAdapter(playersAdapter);
     }
-    //<editor-fold desc="onActRes">
-/*
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == IMAGE_RESULT) {
+                game.actualPlayer.setImageUrl(Utils.getImageFromFilePath(this, data));
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CAPTURE_IMAGE &&
-                resultCode == RESULT_OK) {
-            Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(game.groupImageUrl.toString()),
-                    64, 64);
-
-            Drawable d = new BitmapDrawable(getResources(), thumbImage);
-
-            buttonPhoto.setBackground(d);
-        }
-
     }
-*/
-//</editor-fold>
 
     public void onAddPlayerClick(View v) {
         game.lstPlayers.add(new Player(game));
+
+        game.actualPlayer = game.lstPlayers.get(game.lstPlayers.size() - 1);
 
         playersAdapter.notifyDataSetChanged();
     }
@@ -129,41 +132,17 @@ public class CreateGameActivity extends AppCompatActivity {
             finish();
 
         } catch (Exception e) {
-            Toast.makeText(this, MainActivity.getStringIdentifier(this, e.getMessage()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, Utils.getStringIdentifier(this, e.getMessage()), Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onPhotoClick(View v) {
-        Intent pictureIntent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE);
-        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
-            //Create a file to store the image
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                Toast.makeText(this, R.string.savePhotoError, Toast.LENGTH_SHORT);
-            }
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, "com.mgarnier11.CyzoisEvenings.provider", photoFile);
-                game.group.imageUrl = photoFile.toString();
-                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(pictureIntent, REQUEST_CAPTURE_IMAGE);
-            }
-        }
+        game.actualPlayer = game.group;
+
+        takePhoto();
     }
 
-    private File createImageFile() throws IOException {
-        String timeStamp =
-                new SimpleDateFormat("yyyyMMdd_HHmmss",
-                        Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-        return image;
+    public void takePhoto() {
+        startActivityForResult(Utils.getPickImageChooserIntent(this), IMAGE_RESULT);
     }
 }

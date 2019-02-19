@@ -14,7 +14,16 @@ public class Player implements Serializable {
 
     public int gender;
 
-    public String imageUrl;
+    private String _imageUrl;
+
+    public String getImageUrl() {
+        return _imageUrl;
+    }
+
+    public void setImageUrl(String _imageUrl) {
+        playerListener.onImageUrlChanged(_imageUrl);
+        this._imageUrl = _imageUrl;
+    }
 
     public transient Game game;
 
@@ -24,7 +33,7 @@ public class Player implements Serializable {
         this.nbQuestions = 0;
         this.nbDone = 0;
         this.gender = 0;
-        this.imageUrl = "";
+        this._imageUrl = "";
         this.game = game;
     }
 
@@ -42,4 +51,22 @@ public class Player implements Serializable {
     public int getplayerPoints() {
         return ((nbDrinked * 2) + nbQuestions + nbDone);
     }
+
+    //region Events
+    private transient PlayerEventListener playerListener;
+
+    public void setEventListner(PlayerEventListener listener) {
+        playerListener = listener;
+    }
+
+    public interface PlayerEventListener{
+        void onImageUrlChanged(String newImageUrl);
+    }
+
+    public static class PlayerConsumer implements Player.PlayerEventListener {
+        public void onImageUrlChanged(String newImageUrl) {
+
+        }
+    }
+    //endregion
 }

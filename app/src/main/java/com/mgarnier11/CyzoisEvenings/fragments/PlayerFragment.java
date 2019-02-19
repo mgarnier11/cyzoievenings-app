@@ -1,8 +1,6 @@
 package com.mgarnier11.CyzoisEvenings.fragments;
 
 
-import android.content.res.Configuration;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,11 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mgarnier11.CyzoisEvenings.R;
+import com.mgarnier11.CyzoisEvenings.activitys.QuestionActivity;
 import com.mgarnier11.CyzoisEvenings.models.Game;
-import com.mgarnier11.CyzoisEvenings.models.GameOld;
-import com.mgarnier11.CyzoisEvenings.models.Player;
-import com.mgarnier11.CyzoisEvenings.models.Question;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +52,25 @@ public class PlayerFragment extends Fragment {
 
         textViewPlayerName.setText(game.actualPlayer.name);
 
-        imageViewPlayerPhoto.setImageBitmap(BitmapFactory.decodeFile(game.actualPlayer.imageUrl));
+        Glide
+                .with(getActivity().getApplicationContext())
+                .load(game.actualPlayer.getImageUrl())
+                .centerCrop()
+                .into(imageViewPlayerPhoto);
+
+
+        imageViewPlayerPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((QuestionActivity)getActivity()).takePhoto();
+            }
+        });
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        imageViewPlayerPhoto.setImageDrawable(null);
+    }
 }

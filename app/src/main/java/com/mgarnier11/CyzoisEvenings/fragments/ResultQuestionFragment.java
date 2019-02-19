@@ -14,9 +14,6 @@ import android.widget.TextView;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.activitys.QuestionActivity;
 import com.mgarnier11.CyzoisEvenings.models.Game;
-import com.mgarnier11.CyzoisEvenings.models.GameOld;
-import com.mgarnier11.CyzoisEvenings.models.Player;
-import com.mgarnier11.CyzoisEvenings.models.Question;
 
 /**
  * A simple {@link Fragment} subclass.

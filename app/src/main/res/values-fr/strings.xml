@@ -35,4 +35,6 @@
     <string name="buttonPhotoText">Photo</string>
     <string name="playerNameWrong">Nom du joueur incorrect</string>
     <string name="groupName">Groupe</string>
+    <string name="buttonTakeNewText">Nouvelle photo</string>
+    <string name="buttonSelectExistingText">Existant</string>
 </resources>

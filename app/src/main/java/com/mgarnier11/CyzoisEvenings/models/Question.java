@@ -42,7 +42,7 @@ public class Question implements Serializable {
         this.text = "";
     }
 
-    public void setPlayersToText(List<Player> lstPlayers) {
+    public void processQuestion(List<Player> lstPlayers) {
         text = text.replace("{F}", "");
         text = text.replace("{M}", "");
 
