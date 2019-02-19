@@ -115,7 +115,7 @@ public class Game implements Serializable {
     public void setPlayerOrder(int nbTurns) {
         lstPlayersOrder = new ArrayList<>();
 
-        int nbPlayerIteration = nbTurns / (lstPlayers.size() + 1);
+        int nbPlayerIteration = nbTurns / (lstPlayers.size());
 
         for (Player p:lstPlayers) {
             for (int i = 0; i < nbPlayerIteration; i++) {
@@ -123,7 +123,7 @@ public class Game implements Serializable {
             }
         }
 
-        for (int i = 0; i < nbPlayerIteration; i++) {
+        for (int i = 0; i < (nbTurns / 10); i++) {
             lstPlayersOrder.add(group);
         }
 

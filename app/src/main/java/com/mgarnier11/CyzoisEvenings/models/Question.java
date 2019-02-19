@@ -1,8 +1,11 @@
 package com.mgarnier11.CyzoisEvenings.models;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Question implements Serializable {
@@ -78,6 +81,23 @@ public class Question implements Serializable {
 
             lstPlayers.remove(p);
         }
+
+        Pattern pattern = Pattern.compile("\\{Rnd\\(([0-9]|[1-9][0-9]|[1-9][0-9][0-9]):([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\\)\\}");
+        Matcher matcher = pattern.matcher(text);
+        // Check all occurrences
+        while (matcher.find()) {
+            String f = matcher.group();
+
+            f = f.replace("{Rnd(", "");
+            f = f.replace(")}", "");
+
+            String[] nbs = f.split(":");
+
+            int rnd = Game.rnd.nextInt( Integer.valueOf(nbs[1]) - Integer.valueOf(nbs[0])) + Integer.valueOf(nbs[0]);
+
+            text = text.replace(matcher.group(), String.valueOf(rnd));
+        }
+
 
     }
 
