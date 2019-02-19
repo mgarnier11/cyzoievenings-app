@@ -52,19 +52,22 @@
         app:layout_constraintStart_toEndOf="@+id/recycler_item_player_buttonGender"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/recycler_item_player_buttonPhoto"
         style="@style/CyzoisEvenings.Button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:theme="@style/CyzoisEvenings.Button"
+        android:adjustViewBounds="true"
+        android:contentDescription="Player Photo"
+        android:cropToPadding="true"
+        android:padding="4dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recycler_item_player_buttonGender"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars[3]" />
 
 </android.support.constraint.ConstraintLayout>

@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,22 +75,20 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder
     {
-        private static final int REQUEST_CAPTURE_IMAGE = 100;
-
+        public Player p;
         // TextView intitulé Player :
         public TextView editTextPlayerName;
         public Button buttonPlayerGender;
         public Button buttonDeletePlayer;
-        public Button buttonPlayerPhoto;
+        public ImageButton buttonPlayerPhoto;
         // Constructeur :
         public PlayerViewHolder(View itemView)
         {
             super(itemView);
 
             context = itemView.getContext();
-            Log.i("ae", String.valueOf(getAdapterPosition()));
 
-            final Player p = game.actualPlayer;
+            p = game.actualPlayer;
 
             editTextPlayerName = itemView.findViewById(R.id.recycler_item_player_editTextPlayerName);
             buttonPlayerGender = itemView.findViewById(R.id.recycler_item_player_buttonGender);
@@ -99,20 +98,25 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
             buttonDeletePlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Player player = listePlayers.get(getAdapterPosition());
 
-                    p.game.lstPlayers.remove(p);
+                    player.game.lstPlayers.remove(player);
 
                     notifyDataSetChanged();
+
+                    buttonPlayerPhoto.setImageBitmap(null);
                 }
             });
 
             buttonPlayerGender.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (p.gender == 0) p.gender = 1;
-                    else p.gender = 0;
+                    Player player = listePlayers.get(getAdapterPosition());
 
-                    p.game.lstPlayers.set(getAdapterPosition(), p);
+                    if (player.gender == 0) player.gender = 1;
+                    else player.gender = 0;
+
+                    player.game.lstPlayers.set(getAdapterPosition(), player);
 
                     notifyDataSetChanged();
                 }
@@ -121,9 +125,23 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
             buttonPlayerPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    game.actualPlayer = listePlayers.get(getAdapterPosition());
+                    Player player = listePlayers.get(getAdapterPosition());
+
+                    game.actualPlayer = player;
 
                     parent.takePhoto();
+
+                    player.setEventListner(new Player.PlayerConsumer() {
+                        @Override
+                        public void onImageUrlChanged(String newImageUrl) {
+                            super.onImageUrlChanged(newImageUrl);
+
+                            Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(newImageUrl),
+                                    64, 64);
+
+                            buttonPlayerPhoto.setImageBitmap(thumbImage);
+                        }
+                    });
                 }
 
             });
@@ -136,9 +154,9 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    Player p = listePlayers.get(getAdapterPosition());
+                    Player player = listePlayers.get(getAdapterPosition());
 
-                    p.name = s.toString();
+                    player.name = s.toString();
                 }
 
                 @Override
@@ -147,19 +165,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
                 }
             });
 
-            p.setEventListner(new Player.PlayerConsumer() {
-                @Override
-                public void onImageUrlChanged(String newImageUrl) {
-                    super.onImageUrlChanged(newImageUrl);
 
-                    Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(newImageUrl),
-                            64, 64);
-
-                    Drawable d = new BitmapDrawable(context.getResources(), thumbImage);
-
-                    buttonPlayerPhoto.setBackground(d);
-                }
-            });
         }
     }
 }
