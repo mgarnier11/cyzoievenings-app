@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class Utils {
+    public static transient Random rnd = new Random();
 
     public static Intent getPickImageChooserIntent(Context context) {
 
@@ -140,5 +142,13 @@ public class Utils {
         }
 
         return null;
+    }
+
+    public static int getRnd(int max) {
+        return rnd.nextInt(max);
+    }
+
+    public static int getRnd(int min, int max) {
+        return rnd.nextInt( max - min) + min;
     }
 }

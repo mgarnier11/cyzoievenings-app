@@ -93,7 +93,7 @@ public class Question implements Serializable {
 
             String[] nbs = f.split(":");
 
-            int rnd = Game.rnd.nextInt( Integer.valueOf(nbs[1]) - Integer.valueOf(nbs[0])) + Integer.valueOf(nbs[0]);
+            int rnd = Utils.getRnd(Integer.valueOf(nbs[0]), Integer.valueOf(nbs[1]));
 
             text = text.replace(matcher.group(), String.valueOf(rnd));
         }
@@ -120,7 +120,7 @@ public class Question implements Serializable {
 
     public int getRndDrinks(int min, int max) {
         if (nbDrinks == 0) {
-            float rnd = (float) Game.rnd.nextInt(max - min) + min;
+            float rnd = (float) Utils.getRnd(min, max);
 
             int eff = nbDone * 100 / nbPicked;
 

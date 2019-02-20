@@ -1,13 +1,19 @@
 package com.mgarnier11.CyzoisEvenings.fragments;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +21,15 @@ import com.bumptech.glide.Glide;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.activitys.QuestionActivity;
 import com.mgarnier11.CyzoisEvenings.models.Game;
+import com.mgarnier11.CyzoisEvenings.models.Player;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PlayerFragment extends Fragment {
     Game game;
+
+    Player player;
 
     TextView textViewPlayerName;
 
@@ -29,12 +38,15 @@ public class PlayerFragment extends Fragment {
     public PlayerFragment() {
         // Required empty public constructor
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         game = Game.getInstance();
+
+        if (getArguments() != null) player  = (Player)getArguments().getSerializable("player");
+
+        if (player == null) player = game.actualPlayer;
 
         return inflater.inflate(R.layout.fragment_player, container, false);
     }
@@ -50,11 +62,11 @@ public class PlayerFragment extends Fragment {
 
         imageViewPlayerPhoto = getActivity().findViewById(R.id.fragment_player_imageViewPhoto);
 
-        textViewPlayerName.setText(game.actualPlayer.name);
+        textViewPlayerName.setText(player.name);
 
         Glide
                 .with(getActivity().getApplicationContext())
-                .load(game.actualPlayer.getImageUrl())
+                .load(player.getImageUrl())
                 .centerCrop()
                 .into(imageViewPlayerPhoto);
 

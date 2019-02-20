@@ -75,7 +75,6 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder
     {
-        public Player p;
         // TextView intitulé Player :
         public TextView editTextPlayerName;
         public Button buttonPlayerGender;
@@ -87,8 +86,6 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
             super(itemView);
 
             context = itemView.getContext();
-
-            p = game.actualPlayer;
 
             editTextPlayerName = itemView.findViewById(R.id.recycler_item_player_editTextPlayerName);
             buttonPlayerGender = itemView.findViewById(R.id.recycler_item_player_buttonGender);

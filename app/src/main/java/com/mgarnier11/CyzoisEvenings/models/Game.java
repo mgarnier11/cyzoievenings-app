@@ -38,8 +38,6 @@ public class Game implements Serializable {
 
     public static transient String API_URL = "https://cyzoievenings-backend.herokuapp.com/";
 
-    public static transient Random rnd = new Random();
-
     private static transient String apiErrorCode = "apiError";
 
     private transient AsyncHttpClient asyncClient;
@@ -202,7 +200,7 @@ public class Game implements Serializable {
         List<Player> lstP = new ArrayList<>();
 
         for (int i = 0; i < nb; i++) {
-            Player newPlayer = lst.get(Game.rnd.nextInt(lst.size()));
+            Player newPlayer = lst.get(Utils.getRnd(lst.size()));
             lst.remove(newPlayer);
 
             lstP.add(newPlayer);

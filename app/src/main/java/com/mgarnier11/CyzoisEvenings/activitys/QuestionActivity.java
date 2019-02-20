@@ -3,10 +3,12 @@ package com.mgarnier11.CyzoisEvenings.activitys;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -22,6 +24,9 @@ import com.mgarnier11.CyzoisEvenings.models.Player;
 import com.mgarnier11.CyzoisEvenings.models.Question;
 import com.mgarnier11.CyzoisEvenings.models.Type;
 import com.mgarnier11.CyzoisEvenings.models.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
     private final static int IMAGE_RESULT = 200;
@@ -107,13 +112,34 @@ public class QuestionActivity extends AppCompatActivity {
         showPlayerFragment(fragment);
     }
 
-    public void showQuestionFragment(Fragment fragment) {
-        if (getSupportFragmentManager().findFragmentById(R.id.activity_question_questionFragmentContainer) != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .remove(getSupportFragmentManager().findFragmentById(R.id.activity_question_questionFragmentContainer))
-                    .commitAllowingStateLoss();
+    public void showPlayerAnimated(Player p) {
+        List<Fragment> lstFragments = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            Fragment fragment = new PlayerFragment();
+
+            Bundle args = new Bundle();
+            Player player = null;
+            try {
+                player = game.lstPlayers.get(Utils.getRnd(game.lstPlayers.size() + 1));
+            } catch (IndexOutOfBoundsException e) {
+                player = game.group;
+            }
+
+            args.putSerializable("player", player);
+
+            fragment.setArguments(args);
+
+            lstFragments.add(fragment);
         }
+
+        lstFragments.add(new PlayerFragment());
+
+        new DisplayFragments().execute(lstFragments.toArray(new Fragment[lstFragments.size()]));
+
+    }
+
+    public void showQuestionFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_question_questionFragmentContainer, fragment)
@@ -121,14 +147,17 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void showPlayerFragment(Fragment fragment) {
-        if (getSupportFragmentManager().findFragmentById(R.id.activity_question_playerFragmentContainer) != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .remove(getSupportFragmentManager().findFragmentById(R.id.activity_question_playerFragmentContainer))
-                    .commitAllowingStateLoss();
-        }
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                .replace(R.id.activity_question_playerFragmentContainer, fragment)
+                .commitAllowingStateLoss();
+    }
+
+    public void showPlayerFragmentFast(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right_fast, R.anim.exit_to_left)
                 .replace(R.id.activity_question_playerFragmentContainer, fragment)
                 .commitAllowingStateLoss();
     }
@@ -163,5 +192,41 @@ public class QuestionActivity extends AppCompatActivity {
 
     public void takePhoto() {
         startActivityForResult(Utils.getPickImageChooserIntent(this), IMAGE_RESULT);
+    }
+
+    private class DisplayFragments extends AsyncTask<Fragment, Integer, Fragment> {
+        @Override
+        protected Fragment doInBackground(Fragment... lstFragments) {
+            for (final Fragment fragment: lstFragments) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showPlayerFragmentFast(fragment);
+                    }
+                });
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.interrupted();
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final Fragment fragment) {
+            super.onPostExecute(fragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
     }
 }
