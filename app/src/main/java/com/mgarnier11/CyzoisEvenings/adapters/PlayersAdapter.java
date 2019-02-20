@@ -27,6 +27,7 @@ import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.activitys.CreateGameActivity;
 import com.mgarnier11.CyzoisEvenings.models.Game;
 import com.mgarnier11.CyzoisEvenings.models.Player;
+import com.mgarnier11.CyzoisEvenings.models.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -136,7 +137,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
                             Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(newImageUrl),
                                     64, 64);
 
-                            buttonPlayerPhoto.setImageBitmap(thumbImage);
+                            buttonPlayerPhoto.setImageBitmap(Utils.getRoundedCornerImage(thumbImage, 10));
                         }
                     });
                 }

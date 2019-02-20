@@ -82,7 +82,5 @@ public class PlayerFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        imageViewPlayerPhoto.setImageDrawable(null);
     }
 }

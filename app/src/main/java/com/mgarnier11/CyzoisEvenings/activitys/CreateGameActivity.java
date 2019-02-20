@@ -14,9 +14,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.Util;
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.adapters.PlayersAdapter;
 import com.mgarnier11.CyzoisEvenings.models.Game;
@@ -32,7 +34,7 @@ public class CreateGameActivity extends AppCompatActivity {
 
     private PlayersAdapter playersAdapter;
 
-    private Button buttonPhoto;
+    private ImageButton buttonPhoto;
 
     private RangeBar rangeBarNbDrinks;
     private RangeBar rangeBarDiffMax;
@@ -77,9 +79,7 @@ public class CreateGameActivity extends AppCompatActivity {
                 Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(newImageUrl),
                         64, 64);
 
-                Drawable d = new BitmapDrawable(getResources(), thumbImage);
-
-                buttonPhoto.setBackground(d);
+                buttonPhoto.setImageBitmap(Utils.getRoundedCornerImage(thumbImage, 10));
             }
         });
 
