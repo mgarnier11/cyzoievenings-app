@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#CE6C16</color>
-    <color name="colorPrimaryDark">#A96400</color>
-    <color name="colorAccent">#B19453</color>
+    <color name="colorPrimary">#10A2D5</color>
+    <color name="colorPrimaryDark">#0073a3</color>
+    <color name="colorPrimaryLight">#63d3ff</color>
 
     <color name="textColor">#000000</color>
 
-    <color name="textViewTextColor">@color/textColor</color>
-
-    <color name="deleteColor">#E10050</color>
-    <color name="deleteTextColor">#FFFFFF</color>
-
-    <color name="primaryColor">#2196F3</color>
-    <color name="primaryTextColor">#FFFFFF</color>
+    <color name="buttonColor">@android:color/transparent</color>
+    <color name="buttonOutlineColor">@color/colorPrimary</color>
 </resources>

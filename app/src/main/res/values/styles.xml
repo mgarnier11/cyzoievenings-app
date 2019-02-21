@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="CyzoisEvenings" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="actionBarStyle">@style/Widget.CyzoisEvenings.ActionBar</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.CyzoisEvenings.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.CyzoisEvenings.PopupMenu</item>
+    </style>
+
+    <style name="Widget.CyzoisEvenings.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <!-- action bar background - without android prefix -->
+        <item name="background">@color/colorPrimary</item>
+        <!-- action bar elevation - without android prefix -->
+        <item name="elevation">4dp</item>
+    </style>
+
+    <style name="ThemeOverlay.CyzoisEvenings.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- title text color -->
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <!-- subtitle text color -->
+        <!--<item name="android:textColorSecondary">?android:textColorPrimary</item>-->
+        <!-- action menu item text color -->
+        <!--<item name="actionMenuTextColor">?android:textColorPrimary</item>-->
+        <!-- action menu item icon color -->
+        <!--<item name="colorControlNormal">?android:textColorPrimary</item>-->
+    </style>
+
+    <style name="ThemeOverlay.CyzoisEvenings.PopupMenu" parent="ThemeOverlay.AppCompat.Dark">
+        <!-- popup menu background - NEVER "android:background" !!! in themes -->
+        <!--<item name="android:colorBackground">...</item>-->
+        <!-- popup menu item text color -->
+        <!--<item name="android:textColorPrimary">...</item>-->
     </style>
 
     <style name="CyzoisEvenings.Button">
         <item name="android:textAllCaps">true</item>
         <item name="android:background">@drawable/button</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/buttonTextSize</item>
-    </style>
-
-    <style name="CyzoisEvenings.Button.Primary">
-        <item name="android:textColor">@drawable/button_primary_text_color</item>
-        <item name="android:background">@drawable/button_primary</item>
-    </style>
-
-    <style name="CyzoisEvenings.Button.Delete">
-        <item name="android:textColor">@drawable/button_delete_text_color</item>
-        <item name="android:background">@drawable/button_delete</item>
-    </style>
-
-    <style name="CyzoisEvenings.Button.NoChange">
-        <item name="android:background">@drawable/button_no_change</item>
     </style>
 
     <style name="CyzoisEvenings.TextView">
         <item name="android:textSize">@dimen/textViewTextSize</item>
-        <item name="android:textColor">@color/textViewTextColor</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="CyzoisEvenings.TextView.Little">

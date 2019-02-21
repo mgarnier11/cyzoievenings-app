@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.mgarnier11.CyzoisEvenings.R;
 import com.mgarnier11.CyzoisEvenings.activitys.CreateGameActivity;
@@ -78,8 +79,8 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
     {
         // TextView intitulé Player :
         public TextView editTextPlayerName;
-        public Button buttonPlayerGender;
-        public Button buttonDeletePlayer;
+        public ToggleButton buttonPlayerGender;
+        public ImageButton buttonDeletePlayer;
         public ImageButton buttonPlayerPhoto;
         // Constructeur :
         public PlayerViewHolder(View itemView)
@@ -102,7 +103,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 
                     notifyDataSetChanged();
 
-                    buttonPlayerPhoto.setImageBitmap(null);
+                    buttonPlayerPhoto.setImageResource(R.drawable.ic_camera_alt);
                 }
             });
 
@@ -137,7 +138,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
                             Bitmap thumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(newImageUrl),
                                     64, 64);
 
-                            buttonPlayerPhoto.setImageBitmap(Utils.getRoundedCornerImage(thumbImage, 10));
+                            buttonPlayerPhoto.setImageBitmap(Utils.getRoundedCornerImage(thumbImage, 12));
                         }
                     });
                 }
