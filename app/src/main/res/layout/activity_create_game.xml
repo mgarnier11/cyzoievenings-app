@@ -9,69 +9,6 @@
     android:focusableInTouchMode="true"
     tools:context=".activitys.CreateGameActivity">
 
-    <com.appyvet.materialrangebar.RangeBar
-        android:id="@+id/activity_create_game_seekBarDifficulty"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/activity_create_game_textViewDifficultyVertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:mrb_pinTextColor="@android:color/white"
-        app:mrb_connectingLineColor="@color/colorPrimary"
-        app:mrb_pinColor="@color/colorPrimaryDark"
-        app:mrb_selectorBoundaryColor="@color/colorPrimary"
-        app:mrb_selectorColor="@color/colorPrimary"
-        app:mrb_tickColor="@android:color/transparent"
-        app:mrb_pinMaxFont="15sp"
-        app:mrb_pinMinFont="12sp"
-        app:mrb_pinRadius="14dp"
-        app:mrb_rangeBar="false"
-        app:mrb_rangeBarPaddingBottom="20dp"
-        app:mrb_rangeBar_rounded="true"
-        app:mrb_selectorSize="10dp"
-        app:mrb_temporaryPins="true"
-        app:mrb_tickEnd="5"
-        app:mrb_tickInterval="1"
-        app:mrb_tickStart="1" />
-
-    <EditText
-        android:id="@+id/activity_create_game_editTextNbTurns"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/editTextNbTurnsHint"
-        android:inputType="numberDecimal"
-        android:maxLength="3"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        app:layout_constraintEnd_toStartOf="@+id/activity_create_game_textViewDifficultyVertical"
-        app:layout_constraintStart_toEndOf="@+id/activity_create_game_textViewNbTurns"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/activity_create_game_textViewNbTurns"
-        style="@style/CyzoisEvenings.TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/textViewNbTurnsText"
-        app:layout_constraintEnd_toStartOf="@+id/activity_create_game_editTextNbTurns"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/activity_create_game_textViewDifficultyVertical"
-        style="@style/CyzoisEvenings.TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/textViewDifficultyText"
-        app:layout_constraintStart_toEndOf="@+id/activity_create_game_editTextNbTurns"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/activity_create_game_buttonStart"
@@ -95,19 +32,79 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_create_game_textViewDifficultyVertical">
+        app:layout_constraintTop_toBottomOf="@+id/activity_create_game_textViewDifficulty">
+
+        <TextView
+            android:id="@+id/activity_create_game_textViewNbTurns"
+            style="@style/CyzoisEvenings.TextView.Little"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/textViewNbTurnsText"
+            app:layout_constraintEnd_toStartOf="@+id/activity_create_game_editTextNbTurns"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.appyvet.materialrangebar.RangeBar
+            android:id="@+id/activity_create_game_seekBarDifficulty"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/activity_create_game_textViewDifficulty"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mrb_connectingLineColor="@color/colorPrimary"
+            app:mrb_pinColor="@color/colorPrimaryDark"
+            app:mrb_pinMaxFont="12sp"
+            app:mrb_pinMinFont="8sp"
+            app:mrb_pinRadius="10dp"
+            app:mrb_pinTextColor="@android:color/white"
+            app:mrb_rangeBar="false"
+            app:mrb_rangeBarPaddingBottom="20dp"
+            app:mrb_rangeBar_rounded="true"
+            app:mrb_selectorBoundaryColor="@color/colorPrimary"
+            app:mrb_selectorColor="@color/colorPrimary"
+            app:mrb_selectorSize="8dp"
+            app:mrb_temporaryPins="true"
+            app:mrb_tickColor="@android:color/transparent"
+            app:mrb_tickEnd="5"
+            app:mrb_tickInterval="1"
+            app:mrb_tickStart="1" />
+
+        <EditText
+            android:id="@+id/activity_create_game_editTextNbTurns"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/editTextNbTurnsHint"
+            android:inputType="numberDecimal"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            app:layout_constraintEnd_toStartOf="@+id/activity_create_game_textViewDifficulty"
+            app:layout_constraintStart_toEndOf="@+id/activity_create_game_textViewNbTurns"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_create_game_textViewDifficulty"
+            style="@style/CyzoisEvenings.TextView.Little"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/textViewDifficultyText"
+            app:layout_constraintStart_toEndOf="@+id/activity_create_game_editTextNbTurns"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/activity_create_game_textViewMinDrinks"
             style="@style/CyzoisEvenings.TextView.Little"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/textViewMinDrinksText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_create_game_seekBarDrinks"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_create_game_seekBarDrinks"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -115,20 +112,17 @@
             style="@style/CyzoisEvenings.TextView.Little"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/textViewMaxDrinksText"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/activity_create_game_seekBarDrinks" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/activity_create_game_textViewDrinks"
             style="@style/CyzoisEvenings.TextView.Little"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/textViewDrinksText"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/activity_create_game_seekBarDrinks"
@@ -139,25 +133,24 @@
             android:id="@+id/activity_create_game_seekBarDrinks"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_create_game_textViewMaxDrinks"
-            app:layout_constraintStart_toEndOf="@+id/activity_create_game_textViewMinDrinks"
-            app:mrb_pinTextColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:mrb_connectingLineColor="@color/colorPrimary"
             app:mrb_pinColor="@color/colorPrimaryDark"
-            app:mrb_selectorBoundaryColor="@color/colorPrimary"
-            app:mrb_selectorColor="@color/colorPrimary"
-            app:mrb_tickColor="@android:color/transparent"
-            app:mrb_pinMaxFont="15sp"
-            app:mrb_pinMinFont="12sp"
-            app:mrb_pinRadius="14dp"
+            app:mrb_pinMaxFont="12sp"
+            app:mrb_pinMinFont="8sp"
+            app:mrb_pinRadius="10dp"
+            app:mrb_pinTextColor="@android:color/white"
             app:mrb_rangeBar="true"
             app:mrb_rangeBarPaddingBottom="20dp"
             app:mrb_rangeBar_rounded="true"
-            app:mrb_selectorSize="10dp"
-            app:mrb_temporaryPins="true"
+            app:mrb_selectorBoundaryColor="@color/colorPrimary"
+            app:mrb_selectorColor="@color/colorPrimary"
+            app:mrb_selectorSize="8dp"
+            app:mrb_tickColor="@android:color/transparent"
             app:mrb_tickEnd="10"
             app:mrb_tickInterval="1"
             app:mrb_tickStart="1" />

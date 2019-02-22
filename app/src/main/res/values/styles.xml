@@ -4,32 +4,29 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="actionBarStyle">@style/Widget.CyzoisEvenings.ActionBar</item>
         <item name="actionBarTheme">@style/ThemeOverlay.CyzoisEvenings.ActionBar</item>
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.CyzoisEvenings.PopupMenu</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="CyzoisEvenings.Activity">
+        <item name="android:background">@drawable/app_background</item>
     </style>
 
     <style name="Widget.CyzoisEvenings.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
         <!-- action bar background - without android prefix -->
         <item name="background">@color/colorPrimary</item>
         <!-- action bar elevation - without android prefix -->
-        <item name="elevation">4dp</item>
+        <!--<item name="elevation">4dp</item>-->
     </style>
 
     <style name="ThemeOverlay.CyzoisEvenings.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <!-- title text color -->
-        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
         <!-- subtitle text color -->
         <!--<item name="android:textColorSecondary">?android:textColorPrimary</item>-->
         <!-- action menu item text color -->
         <!--<item name="actionMenuTextColor">?android:textColorPrimary</item>-->
         <!-- action menu item icon color -->
         <!--<item name="colorControlNormal">?android:textColorPrimary</item>-->
-    </style>
-
-    <style name="ThemeOverlay.CyzoisEvenings.PopupMenu" parent="ThemeOverlay.AppCompat.Dark">
-        <!-- popup menu background - NEVER "android:background" !!! in themes -->
-        <!--<item name="android:colorBackground">...</item>-->
-        <!-- popup menu item text color -->
-        <!--<item name="android:textColorPrimary">...</item>-->
     </style>
 
     <style name="CyzoisEvenings.Button">

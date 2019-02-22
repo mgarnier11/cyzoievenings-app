@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/CyzoisEvenings">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -41,12 +41,24 @@
             android:stopWithTask="false"/>
 
         <activity
-            android:name=".activitys.EndGameActivity" />
+            android:name=".activitys.EndGameActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mgarnier11.CyzoisEvenings.MainActivity" />
+        </activity>
         <activity
-            android:name=".activitys.QuestionActivity" />
+            android:name=".activitys.QuestionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mgarnier11.CyzoisEvenings.MainActivity" />
+        </activity>
         <activity
             android:name=".activitys.CreateGameActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mgarnier11.CyzoisEvenings.MainActivity" />
+        </activity>
         <activity
             android:name=".MainActivity">
             <intent-filter>

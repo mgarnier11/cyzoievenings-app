@@ -3,6 +3,7 @@ package com.mgarnier11.CyzoisEvenings.activitys;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -41,6 +42,7 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
+
         game = Game.getInstance();
 
         layoutAct = findViewById(R.id.activity_question_activityQuestionContainer);
@@ -69,6 +71,8 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         Boolean newAct = true;
+
+        if (getIntent() != null) newAct = getIntent().getBooleanExtra("new", true);
 
         if (savedInstanceState != null) newAct = savedInstanceState.getBoolean("new");
 
@@ -146,26 +150,46 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void showPlayerFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
-                .replace(R.id.activity_question_playerFragmentContainer, fragment)
-                .commitAllowingStateLoss();
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_bottom)
+                    .replace(R.id.activity_question_playerFragmentContainer, fragment)
+                    .commitAllowingStateLoss();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                    .replace(R.id.activity_question_playerFragmentContainer, fragment)
+                    .commitAllowingStateLoss();
+        }
     }
 
     public void showPlayerFragmentFast(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right_fast, R.anim.exit_to_left)
-                .replace(R.id.activity_question_playerFragmentContainer, fragment)
-                .commitAllowingStateLoss();
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_top_fast, R.anim.exit_to_bottom)
+                    .replace(R.id.activity_question_playerFragmentContainer, fragment)
+                    .commitAllowingStateLoss();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right_fast, R.anim.exit_to_left)
+                    .replace(R.id.activity_question_playerFragmentContainer, fragment)
+                    .commitAllowingStateLoss();
+        }
     }
 
     public void nextQuestion() {
         showPlayerFragment(new LoadingFragment());
         showQuestionFragment(new LoadingFragment());
 
-        try{
+        try {
             game.nextTurn();
         } catch (Game.GameFinishedException e) {
             Intent intent = new Intent(this, EndGameActivity.class);
@@ -196,7 +220,7 @@ public class QuestionActivity extends AppCompatActivity {
     private class DisplayFragments extends AsyncTask<Fragment, Integer, Fragment> {
         @Override
         protected Fragment doInBackground(Fragment... lstFragments) {
-            for (final Fragment fragment: lstFragments) {
+            for (final Fragment fragment : lstFragments) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
