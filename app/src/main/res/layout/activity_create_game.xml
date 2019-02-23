@@ -194,7 +194,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
         android:onClick="onPhotoClick"
-        android:padding="2dp"
+        android:padding="2px"
         android:scaleType="fitXY"
         android:src="@drawable/ic_camera_alt"
         app:layout_constraintBottom_toBottomOf="parent"
