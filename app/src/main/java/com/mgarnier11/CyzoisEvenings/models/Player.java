@@ -38,6 +38,8 @@ public class Player implements Serializable {
     }
 
     public static Player getPlayerByGenderFromLst(List<Player> lst, int gender) {
+
+
         if (gender == 0 | gender == 1) {
             for (Player p : lst) {
                 if (p.gender == gender) return p;

@@ -102,9 +102,14 @@ public class Question implements Serializable {
     }
 
     private List<Integer> getStrpos(String base, String search) {
+        List<Integer> result = new ArrayList<>();
+        /*for(int i = 0; i < base.length(); i++) {
+            if (base.substring(i, i + search.length()) == search) result.add(i);
+        }*/
+
         int lastIndex = 0;
 
-        List<Integer> result = new ArrayList<>();
+
         while(lastIndex != -1) {
 
             lastIndex = base.indexOf(search,lastIndex);
