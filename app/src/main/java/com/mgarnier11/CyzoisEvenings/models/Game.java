@@ -177,7 +177,7 @@ public class Game implements Serializable {
                 // Handle resulting parsed JSON response here
                 Question q = new Gson().fromJson(response.toString(), Question.class);
 
-                q.processQuestion(getRandomPlayers(actualPlayer, q.nbPlayers));
+                q.processQuestion(removeActual(actualPlayer, lstPlayers));
 
                 actualQuestion = q;
 
@@ -193,10 +193,12 @@ public class Game implements Serializable {
         });
     }
 
-    public List<Player> getRandomPlayers(Player p, int nb) {
+    public List<Player> removeActual(Player p, List<Player> players) {
         List<Player> lst = new ArrayList<>(lstPlayers);
         lst.remove(p);
-
+        Collections.shuffle(lst);
+        return lst;
+        /*
         List<Player> lstP = new ArrayList<>();
 
         for (int i = 0; i < nb; i++) {
@@ -207,6 +209,7 @@ public class Game implements Serializable {
         }
 
         return lstP;
+        */
     }
 
     //region ApiCalls
